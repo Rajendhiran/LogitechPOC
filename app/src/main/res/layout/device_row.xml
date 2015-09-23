@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:id="@+id/deviceName" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_below="@+id/deviceName"
+        android:layout_height="wrap_content"
+        android:id="@+id/deviceModel" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/deviceModel"
+        android:id="@+id/deviceType" />
+
+</RelativeLayout>
