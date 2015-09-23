@@ -33,7 +33,20 @@ public class MainActivity extends AppCompatActivity
     private void process()
     {
         showpDialog();
+
+        // Either use the handler or runOnUiThread by uncommenting the code;
+
+        /* Handler
         handler.sendEmptyMessage(IConstant.PARSE_DEVICE);
+        */
+
+        // runOnUiThread
+
+        runOnUiThread(new Runnable() {
+            public void run() {
+                PopulateTheView();
+            }
+        });
     }
 
     private void init()
@@ -66,26 +79,31 @@ public class MainActivity extends AppCompatActivity
             {
                 case IConstant.PARSE_DEVICE:
                 {
-                    String jsonValues = logApplication.loadJSONFromAsset(IConstant.JSON_FILE_NAME);
-                    Log.d("JSONValues: ","data: "+jsonValues);
-                    data = (DevicesBean) logApplication.getFromJSON(jsonValues,DevicesBean.class);
-                    Log.d("DeviceSize: ","data:"+data.getDevices().size());
-
-                    for(DevicesBean.Devices d: data.getDevices())
-                    {
-                        Log.d("----","# --------------");
-                        Log.d("Name :","# "+d.getName());
-                        Log.d("Type :","# "+d.getDeviceType());
-                        Log.d("Model:","# "+d.getModel());
-                        Log.d("----","# --------------");
-                    }
-                    deviceAdapter = new DeviceAdapter(MainActivity.this,data);
-                    devicelstView.setAdapter(deviceAdapter);
-                    hidepDialog();
+                    PopulateTheView();
                 }
                 break;
             }
         }
     };
+
+    public void PopulateTheView()
+    {
+        String jsonValues = logApplication.loadJSONFromAsset(IConstant.JSON_FILE_NAME);
+        Log.d("JSONValues: ","data: "+jsonValues);
+        data = (DevicesBean) logApplication.getFromJSON(jsonValues,DevicesBean.class);
+        Log.d("DeviceSize: ","data:"+data.getDevices().size());
+
+        for(DevicesBean.Devices d: data.getDevices())
+        {
+            Log.d("----","# --------------");
+            Log.d("Name :","# "+d.getName());
+            Log.d("Type :","# "+d.getDeviceType());
+            Log.d("Model:","# "+d.getModel());
+            Log.d("----","# --------------");
+        }
+        deviceAdapter = new DeviceAdapter(MainActivity.this,data);
+        devicelstView.setAdapter(deviceAdapter);
+        hidepDialog();
+    }
 
 }
